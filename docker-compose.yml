@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  crdb:
+    container_name: crdb
+    image: cockroachdb/cockroach:latest
+    ports:
+      - "26257:26257"
+      - "8080:8080"
+    command: start-single-node --insecure
+    environment:
+      - COCKROACH_USER=${COCKROACH_USER}
+      - COCKROACH_PASSWORD=${COCKROACH_PASSWORD}
+      - COCKROACH_DATABASE=${COCKROACH_DATABASE}
+      - COCKROACH_HOST=${COCKROACH_HOST}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/1_init.sql
+
+
